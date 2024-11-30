@@ -1,6 +1,15 @@
 @VisionAI_HostAddress = http://localhost:5045
 
-GET {{VisionAI_HostAddress}}/weatherforecast/
+GET {{VisionAI_HostAddress}}/message/
 Accept: application/json
 
 ###
+
+
+POST {{VisionAI_HostAddress}}/message
+Accept: application/json
+
+Content-Type: application/json
+{
+  file: "C:\Users\admin\Pictures\Screenshots\Screenshot 2024-11-29 122655.png"
+}
