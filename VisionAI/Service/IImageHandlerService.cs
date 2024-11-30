@@ -1,6 +1,6 @@
 ﻿namespace VisionAI.Service;
 
-internal interface IImageHandlerService
+public interface IImageHandlerService
 {
     Task<string?> HandleImageAsync(IFormFile image);
 }

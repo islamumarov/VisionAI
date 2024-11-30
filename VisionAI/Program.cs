@@ -14,10 +14,14 @@ public class Program
         // Add services to the container.
         builder.Services.AddScoped<IImageHandlerService, ImageHandlerService>();
 
+        var endpoint = builder.Configuration["AI:Ollama:Chat:Endpoint"];
         builder.Services.AddChatClient(client => new OllamaChatClient(
-            new Uri(builder.Configuration["AI:Ollama:Chat:ModelId"]),
-            modelId: builder.Configuration["AI:Ollama:Chat:Endpoint"]
+            new Uri(endpoint),
+            modelId: builder.Configuration["AI:Ollama:Chat:ModelId"]
         ));
+
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -33,6 +37,13 @@ public class Program
             app.MapOpenApi();
         }
 
+        
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            options.RoutePrefix = string.Empty;
+        });
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
